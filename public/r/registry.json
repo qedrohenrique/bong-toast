@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "bong-toast",
+  "homepage": "https://bong-toast.vercel.app",
+  "items": [
+    {
+      "name": "bong-toast",
+      "type": "registry:block",
+      "title": "Bong Toast",
+      "description": "Animated gooey toast notifications with spring animations.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/bong-toast/bong-toast.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/bong-toast/use-bong-toast.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/bong-toast/bong-toast.css",
+          "type": "registry:file",
+          "target": "components/bong-toast/bong-toast.css"
+        }
+      ]
+    }
+  ]
+}

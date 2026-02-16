@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:sileo.aaryan.design)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest build:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
