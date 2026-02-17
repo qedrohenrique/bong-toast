@@ -204,11 +204,6 @@ export default function Home() {
 
       {/* Hero */}
       <div className="flex flex-col items-center justify-center px-6 pt-32 pb-20">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-1.5 text-xs text-zinc-400">
-          <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          shadcn registry
-        </div>
-
         <h1 className="text-center text-5xl font-bold tracking-tight sm:text-7xl">
           bong-toast
         </h1>
