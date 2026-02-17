@@ -88,8 +88,8 @@ export function toastStore() {
         title: options.title,
         description: options.description,
         variant: options.variant ?? "default",
-        duration: options.duration ?? 4000,
-        size: options.size ?? "md",
+        duration: options.duration,
+        size: options.size,
         style: options.style,
         spring: options.spring,
       };
@@ -114,7 +114,7 @@ export function useBongToast() {
   const currentToasts = useSyncExternalStore(
     store.subscribe,
     store.getSnapshot,
-    store.getSnapshot
+    store.getSnapshot,
   );
 
   const toast = useCallback((options: ToastOptions) => {

@@ -12,7 +12,7 @@ const installCommand =
   "npx shadcn@latest add https://bong-toast.vercel.app/r/bong-toast.json";
 
 const usageCode = `import { BongToast } from "@/components/bong-toast/bong-toast";
-import { useBongToast } from "@/hooks/use-bong-toast";
+import { useBongToast } from "@/components/bong-toast/use-bong-toast";
 
 // In your layout or root component:
 <BongToast
@@ -32,7 +32,7 @@ toast({ title: "Saved!", variant: "success" });
 // With per-toast overrides
 toast({
   title: "Custom toast",
-  description: "Hover me to see the description expand.",
+  description: "Hover me to expand.",
   variant: "info",
   duration: 6000,
   size: "lg",
@@ -62,7 +62,8 @@ const variants = [
   {
     variant: "info" as const,
     title: "New update available",
-    description: "Version 2.0 is ready to install. Check the changelog for details.",
+    description:
+      "Version 2.0 is ready to install. Check the changelog for details.",
     label: "Info",
   },
   {
@@ -158,7 +159,8 @@ function Slider({
       <div className="mb-2 flex items-center justify-between">
         <span className="text-sm text-zinc-500">{label}</span>
         <span className="font-mono text-sm text-zinc-400">
-          {value}{unit}
+          {value}
+          {unit}
         </span>
       </div>
       <input
@@ -188,7 +190,11 @@ export default function Home() {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(installCommand);
     setCopied(true);
-    toast({ title: "Copied to clipboard!", variant: "success", duration: 2000 });
+    toast({
+      title: "Copied to clipboard!",
+      variant: "success",
+      duration: 2000,
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -209,7 +215,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-4 max-w-lg text-center text-lg text-zinc-400">
-          Animated gooey toast notifications with spring physics.
+          Animated toast notifications with spring physics.
           <br />
           Hover any toast to expand its description.
         </p>
@@ -224,12 +230,30 @@ export default function Home() {
           <span className="text-zinc-500 transition-colors group-hover:text-zinc-300">
             {copied ? (
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8.5L6 11.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M3 8.5L6 11.5L13 4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             ) : (
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect x="5" y="5" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.2" />
-                <path d="M5 11H4C2.89543 11 2 10.1046 2 9V4C2 2.89543 2.89543 2 4 2H9C10.1046 2 11 2.89543 11 4V5" stroke="currentColor" strokeWidth="1.2" />
+                <rect
+                  x="5"
+                  y="5"
+                  width="9"
+                  height="9"
+                  rx="2"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M5 11H4C2.89543 11 2 10.1046 2 9V4C2 2.89543 2.89543 2 4 2H9C10.1046 2 11 2.89543 11 4V5"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                />
               </svg>
             )}
           </span>
@@ -260,11 +284,46 @@ export default function Home() {
             Configuration
           </h2>
           <div className="grid gap-5 sm:grid-cols-2">
-            <Slider label="Duration" value={duration} onChange={setDuration} min={1000} max={10000} step={500} unit="ms" />
-            <Slider label="Border Radius" value={borderRadius} onChange={setBorderRadius} min={0} max={30} unit="px" />
-            <Slider label="Stiffness" value={stiffness} onChange={setStiffness} min={100} max={1000} step={10} />
-            <Slider label="Damping" value={damping} onChange={setDamping} min={5} max={60} />
-            <Slider label="Mass" value={mass} onChange={(v) => setMass(v)} min={0.1} max={3} step={0.1} />
+            <Slider
+              label="Duration"
+              value={duration}
+              onChange={setDuration}
+              min={1000}
+              max={10000}
+              step={500}
+              unit="ms"
+            />
+            <Slider
+              label="Border Radius"
+              value={borderRadius}
+              onChange={setBorderRadius}
+              min={0}
+              max={30}
+              unit="px"
+            />
+            <Slider
+              label="Stiffness"
+              value={stiffness}
+              onChange={setStiffness}
+              min={100}
+              max={1000}
+              step={10}
+            />
+            <Slider
+              label="Damping"
+              value={damping}
+              onChange={setDamping}
+              min={5}
+              max={60}
+            />
+            <Slider
+              label="Mass"
+              value={mass}
+              onChange={(v) => setMass(v)}
+              min={0.1}
+              max={3}
+              step={0.1}
+            />
           </div>
         </div>
 
@@ -293,8 +352,13 @@ export default function Home() {
               onClick={() =>
                 toast({
                   title: "Custom styled",
-                  description: "This toast has a custom purple background and round corners.",
-                  style: { bg: "#2d1b69", borderColor: "#7c3aed", borderRadius: 24 },
+                  description:
+                    "This toast has a custom purple background and round corners.",
+                  style: {
+                    bg: "#2d1b69",
+                    borderColor: "#7c3aed",
+                    borderRadius: 24,
+                  },
                 })
               }
               className="rounded-lg border border-purple-500/30 bg-purple-500/15 px-4 py-2 text-sm font-medium text-purple-400 transition-colors hover:bg-purple-500/25"

@@ -3,6 +3,13 @@
 import { useEffect, useCallback, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
+  CircleCheck,
+  CircleX,
+  TriangleAlert,
+  Info,
+  ChevronDown,
+} from "lucide-react";
+import {
   useBongToast,
   type ToastData,
   type ToastPosition,
@@ -11,7 +18,28 @@ import {
   type ToastSpring,
 } from "./use-bong-toast";
 import { cn } from "@/lib/utils";
-import "./bong-toast.css";
+
+const variantIcons = {
+  success: CircleCheck,
+  error: CircleX,
+  warning: TriangleAlert,
+  info: Info,
+} as const;
+
+const variantClasses: Record<string, string> = {
+  default: "",
+  success: "border-l-[3px] border-l-emerald-500",
+  error: "border-l-[3px] border-l-red-500",
+  warning: "border-l-[3px] border-l-amber-500",
+  info: "border-l-[3px] border-l-blue-500",
+};
+
+const variantIconColor: Record<string, string> = {
+  success: "text-emerald-500",
+  error: "text-red-500",
+  warning: "text-amber-500",
+  info: "text-blue-500",
+};
 
 const sizeConfig: Record<
   ToastSize,
@@ -20,7 +48,7 @@ const sizeConfig: Record<
     padding: string;
     titleSize: string;
     descSize: string;
-    iconSize: string;
+    iconSize: number;
   }
 > = {
   sm: {
@@ -28,21 +56,21 @@ const sizeConfig: Record<
     padding: "px-3.5 py-2.5",
     titleSize: "text-xs",
     descSize: "text-[12px]",
-    iconSize: "size-4",
+    iconSize: 16,
   },
   md: {
     maxWidth: "max-w-[420px]",
     padding: "px-4.5 py-3.5",
     titleSize: "text-sm",
     descSize: "text-[13px]",
-    iconSize: "size-[18px]",
+    iconSize: 18,
   },
   lg: {
     maxWidth: "max-w-[520px]",
     padding: "px-5.5 py-4.5",
     titleSize: "text-base",
     descSize: "text-sm",
-    iconSize: "size-[22px]",
+    iconSize: 22,
   },
 };
 
@@ -88,6 +116,11 @@ function ToastItem({
   const size = toast.size ?? defaultSize;
   const sc = sizeConfig[size];
   const mergedStyle: ToastStyle = { ...defaultStyle, ...toast.style };
+  const variant = toast.variant ?? "default";
+  const IconComponent =
+    variant !== "default"
+      ? variantIcons[variant as keyof typeof variantIcons]
+      : null;
 
   const customVars: React.CSSProperties = {
     ...(mergedStyle.bg
@@ -128,13 +161,15 @@ function ToastItem({
         transition: { duration: 0.25, ease: "easeIn" },
       }}
       className={cn(
-        "bong-toast-item",
         "w-fit overflow-hidden pointer-events-auto cursor-pointer select-none",
-        "backdrop-blur-[12px] shadow-[0_8px_32px_oklch(0_0_0/25%),0_2px_8px_oklch(0_0_0/15%)]",
+        "bg-[var(--toast-bg,oklch(0.21_0_0))] text-[var(--toast-fg,oklch(0.985_0_0))]",
+        "border border-[var(--toast-border,oklch(1_0_0/10%))] rounded-[14px]",
+        "shadow-[0_8px_32px_oklch(0_0_0/25%),0_2px_8px_oklch(0_0_0/15%)]",
+        "backdrop-blur-[12px]",
         sc.maxWidth,
         sc.padding,
+        variantClasses[variant] ?? "",
       )}
-      data-variant={toast.variant}
       style={customVars}
       onClick={() => onDismiss(toast.id)}
       onMouseEnter={() => setHovered(true)}
@@ -144,85 +179,11 @@ function ToastItem({
     >
       {/* Header row: icon + title + chevron */}
       <div className="flex items-center gap-2 w-full min-w-0">
-        {toast.variant && toast.variant !== "default" && (
-          <div className={cn("shrink-0", sc.iconSize)}>
-            <svg
-              viewBox="0 0 18 18"
-              fill="none"
-              className="size-full text-[var(--toast-accent)]"
-            >
-              {toast.variant === "success" && (
-                <>
-                  <circle
-                    cx="9"
-                    cy="9"
-                    r="8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M5.5 9.5L7.5 11.5L12.5 6.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </>
-              )}
-              {toast.variant === "error" && (
-                <>
-                  <circle
-                    cx="9"
-                    cy="9"
-                    r="8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M6.5 6.5L11.5 11.5M11.5 6.5L6.5 11.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </>
-              )}
-              {toast.variant === "warning" && (
-                <>
-                  <path
-                    d="M9 2L16.5 15.5H1.5L9 2Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M9 7V10.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="9" cy="13" r="0.75" fill="currentColor" />
-                </>
-              )}
-              {toast.variant === "info" && (
-                <>
-                  <circle
-                    cx="9"
-                    cy="9"
-                    r="8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M9 8V13"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="9" cy="5.5" r="0.75" fill="currentColor" />
-                </>
-              )}
-            </svg>
-          </div>
+        {IconComponent && (
+          <IconComponent
+            size={sc.iconSize}
+            className={cn("shrink-0", variantIconColor[variant] ?? "")}
+          />
         )}
         <div
           className={cn(
@@ -236,17 +197,9 @@ function ToastItem({
           <motion.div
             animate={{ rotate: hovered ? 180 : 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="shrink-0 size-3 opacity-35"
+            className="shrink-0 opacity-35"
           >
-            <svg viewBox="0 0 14 14" fill="none" className="size-full">
-              <path
-                d="M3 5.5L7 9.5L11 5.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronDown size={12} />
           </motion.div>
         )}
       </div>
@@ -296,33 +249,30 @@ export function BongToast({
   const visibleToasts = toasts.slice(0, maxVisible);
 
   return (
-    <>
-      <div
-        className={cn(
-          "bong-toast-container",
-          "fixed z-[9999] flex flex-col gap-2.5 pointer-events-none p-5",
-          position.includes("top") ? "top-0" : "bottom-0",
-          position.includes("right") ? "right-0" : "left-0",
-          position.includes("left") ? "items-start" : "items-end",
-        )}
-      >
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visibleToasts.map((t, index) => (
-            <ToastItem
-              key={t.id}
-              toast={{
-                ...t,
-                duration: t.duration ?? globalDuration ?? 4000,
-              }}
-              onDismiss={handleDismiss}
-              isTop={index === 0}
-              defaultSpringConfig={mergedDefaultSpring}
-              defaultSize={globalSize}
-              defaultStyle={globalStyle}
-            />
-          ))}
-        </AnimatePresence>
-      </div>
-    </>
+    <div
+      className={cn(
+        "fixed z-[9999] flex flex-col gap-2.5 pointer-events-none p-5",
+        position.includes("top") ? "top-0" : "bottom-0",
+        position.includes("right") ? "right-0" : "left-0",
+        position.includes("left") ? "items-start" : "items-end",
+      )}
+    >
+      <AnimatePresence mode="popLayout" initial={false}>
+        {visibleToasts.map((t, index) => (
+          <ToastItem
+            key={t.id}
+            toast={{
+              ...t,
+              duration: t.duration ?? globalDuration ?? 4000,
+            }}
+            onDismiss={handleDismiss}
+            isTop={index === 0}
+            defaultSpringConfig={mergedDefaultSpring}
+            defaultSize={globalSize}
+            defaultStyle={globalStyle}
+          />
+        ))}
+      </AnimatePresence>
+    </div>
   );
 }
