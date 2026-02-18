@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Navbar } from "@/components/navbar";
 import { BongToast } from "../../registry/bong-toast/bong-toast";
 import {
   useBongToast,
@@ -90,15 +91,15 @@ const sizes: { value: ToastSize; label: string }[] = [
 function variantColor(variant: string) {
   switch (variant) {
     case "success":
-      return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25";
+      return "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/25";
     case "error":
-      return "bg-red-500/15 text-red-400 border-red-500/30 hover:bg-red-500/25";
+      return "bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/30 hover:bg-red-500/25";
     case "warning":
-      return "bg-amber-500/15 text-amber-400 border-amber-500/30 hover:bg-amber-500/25";
+      return "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/25";
     case "info":
-      return "bg-blue-500/15 text-blue-400 border-blue-500/30 hover:bg-blue-500/25";
+      return "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/25";
     default:
-      return "bg-zinc-500/15 text-zinc-300 border-zinc-500/30 hover:bg-zinc-500/25";
+      return "bg-muted text-muted-foreground border-border hover:bg-accent";
   }
 }
 
@@ -115,7 +116,7 @@ function ToggleGroup({
 }) {
   return (
     <div>
-      <h2 className="mb-3 text-sm font-medium text-zinc-500 uppercase tracking-wider">
+      <h2 className="mb-3 text-sm font-medium text-muted-foreground uppercase tracking-wider">
         {label}
       </h2>
       <div className="flex flex-wrap gap-2">
@@ -125,8 +126,8 @@ function ToggleGroup({
             onClick={() => onChange(o.value)}
             className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
               value === o.value
-                ? "border-zinc-600 bg-zinc-800 text-zinc-100"
-                : "border-zinc-800 bg-zinc-900 text-zinc-500 hover:text-zinc-300"
+                ? "border-primary/40 bg-primary text-primary-foreground"
+                : "border-border bg-card text-muted-foreground hover:text-foreground hover:bg-accent"
             }`}
           >
             {o.label}
@@ -157,8 +158,8 @@ function Slider({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-sm text-zinc-500">{label}</span>
-        <span className="font-mono text-sm text-zinc-400">
+        <span className="text-sm text-muted-foreground">{label}</span>
+        <span className="font-mono text-sm text-foreground/70">
           {value}
           {unit}
         </span>
@@ -170,7 +171,7 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-zinc-500"
+        className="w-full accent-primary"
       />
     </div>
   );
@@ -199,7 +200,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-background text-foreground">
+      <Navbar />
       <BongToast
         position={position}
         size={size}
@@ -214,7 +216,7 @@ export default function Home() {
           bong-toast
         </h1>
 
-        <p className="mt-4 max-w-lg text-center text-lg text-zinc-400">
+        <p className="mt-4 max-w-lg text-center text-lg text-muted-foreground">
           Animated toast notifications with spring physics.
           <br />
           Hover any toast to expand its description.
@@ -223,11 +225,11 @@ export default function Home() {
         {/* Install command */}
         <button
           onClick={handleCopy}
-          className="group mt-8 flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 px-5 py-3 font-mono text-sm transition-colors hover:border-zinc-700 hover:bg-zinc-800"
+          className="group mt-8 flex items-center gap-3 rounded-xl border border-border bg-card px-5 py-3 font-mono text-sm transition-colors hover:bg-accent"
         >
-          <span className="text-zinc-500">$</span>
-          <span className="text-zinc-300">{installCommand}</span>
-          <span className="text-zinc-500 transition-colors group-hover:text-zinc-300">
+          <span className="text-muted-foreground">$</span>
+          <span className="text-foreground/80">{installCommand}</span>
+          <span className="text-muted-foreground transition-colors group-hover:text-foreground">
             {copied ? (
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
@@ -279,8 +281,8 @@ export default function Home() {
         </div>
 
         {/* Sliders */}
-        <div className="mb-10 rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h2 className="mb-4 text-sm font-medium text-zinc-500 uppercase tracking-wider">
+        <div className="mb-10 rounded-xl border border-border bg-card/50 p-5">
+          <h2 className="mb-4 text-sm font-medium text-muted-foreground uppercase tracking-wider">
             Configuration
           </h2>
           <div className="grid gap-5 sm:grid-cols-2">
@@ -329,7 +331,7 @@ export default function Home() {
 
         {/* Variant buttons */}
         <div className="mb-12">
-          <h2 className="mb-3 text-sm font-medium text-zinc-500 uppercase tracking-wider">
+          <h2 className="mb-3 text-sm font-medium text-muted-foreground uppercase tracking-wider">
             Trigger a toast
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -361,7 +363,7 @@ export default function Home() {
                   },
                 })
               }
-              className="rounded-lg border border-purple-500/30 bg-purple-500/15 px-4 py-2 text-sm font-medium text-purple-400 transition-colors hover:bg-purple-500/25"
+              className="rounded-lg border border-purple-500/30 bg-purple-500/15 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 transition-colors hover:bg-purple-500/25"
             >
               Custom Style
             </button>
@@ -370,17 +372,17 @@ export default function Home() {
 
         {/* Usage code */}
         <div>
-          <h2 className="mb-3 text-sm font-medium text-zinc-500 uppercase tracking-wider">
+          <h2 className="mb-3 text-sm font-medium text-muted-foreground uppercase tracking-wider">
             Usage
           </h2>
-          <pre className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900 p-5 font-mono text-sm leading-relaxed text-zinc-300">
+          <pre className="overflow-x-auto rounded-xl border border-border bg-card p-5 font-mono text-sm leading-relaxed text-foreground/80">
             <code>{usageCode}</code>
           </pre>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-900 py-8 text-center text-sm text-zinc-600">
+      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
         bong-toast — built with Next.js, Motion & shadcn
       </footer>
     </div>

@@ -10,7 +10,8 @@
       "Bash(npx shadcn@latest init:*)",
       "Bash(npx shadcn@latest build:*)",
       "Bash(npm run build:*)",
-      "Bash(bun install:*)"
+      "Bash(bun install:*)",
+      "Bash(npx next build:*)"
     ]
   }
 }
