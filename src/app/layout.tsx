@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "bong-toast — Gooey Toast Notifications",
+  title: "bong-toast — bong Toast Notifications",
   description:
-    "Animated gooey toast component for React. Install via shadcn registry.",
+    "Animated bong toast component for React. Install via shadcn registry.",
 };
 
 export default function RootLayout({

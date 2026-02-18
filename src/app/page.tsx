@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
+import { useTheme } from "@/app/providers";
 import { BongToast } from "../../registry/bong-toast/bong-toast";
 import {
   useBongToast,
@@ -179,6 +180,7 @@ function Slider({
 
 export default function Home() {
   const { toast } = useBongToast();
+  const { theme } = useTheme();
   const [copied, setCopied] = useState(false);
   const [position, setPosition] = useState<ToastPosition>("bottom-right");
   const [size, setSize] = useState<ToastSize>("md");
@@ -357,8 +359,9 @@ export default function Home() {
                   description:
                     "This toast has a custom purple background and round corners.",
                   style: {
-                    bg: "#2d1b69",
-                    borderColor: "#7c3aed",
+                    bg: theme === "dark" ? "#2d1b69" : "#ede9fe",
+                    fg: theme === "dark" ? "#e9d5ff" : "#5b21b6",
+                    borderColor: theme === "dark" ? "#7c3aed" : "#a78bfa",
                     borderRadius: 24,
                   },
                 })

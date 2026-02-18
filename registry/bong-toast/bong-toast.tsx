@@ -162,9 +162,9 @@ function ToastItem({
       }}
       className={cn(
         "w-fit overflow-hidden pointer-events-auto cursor-pointer select-none",
-        "bg-[var(--toast-bg,oklch(0.21_0_0))] text-[var(--toast-fg,oklch(0.985_0_0))]",
-        "border border-[var(--toast-border,oklch(1_0_0/10%))] rounded-[14px]",
-        "shadow-[0_8px_32px_oklch(0_0_0/25%),0_2px_8px_oklch(0_0_0/15%)]",
+        "bg-[var(--toast-bg,var(--card))] text-[var(--toast-fg,var(--card-foreground))]",
+        "border border-[var(--toast-border,var(--border))] rounded-[14px]",
+        "shadow-[0_8px_32px_oklch(0_0_0/15%),0_2px_8px_oklch(0_0_0/10%)]",
         "backdrop-blur-[12px]",
         sc.maxWidth,
         sc.padding,

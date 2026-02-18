@@ -7,7 +7,7 @@
       "name": "bong-toast",
       "type": "registry:block",
       "title": "Bong Toast",
-      "description": "Animated gooey toast notifications with spring animations.",
+      "description": "Animated bong toast notifications with spring animations.",
       "dependencies": ["motion"],
       "files": [
         {
