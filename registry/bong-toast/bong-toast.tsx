@@ -102,54 +102,6 @@ interface BongToastProps {
   expandDescription?: ToastExpandDescription;
 }
 
-/** Concave corner SVG — draws the inverse border-radius arc */
-function ConcaveCorner({
-  size,
-  flip = false,
-}: {
-  size: number;
-  flip?: boolean;
-}) {
-  return (
-    <div
-      className="relative shrink-0"
-      style={{
-        width: size,
-        height: size,
-        transform: flip ? "scaleX(-1)" : undefined,
-      }}
-    >
-      <div
-        className="absolute bottom-0 left-0 overflow-hidden"
-        style={{ width: size, height: size }}
-      >
-        <div
-          style={{
-            width: size * 2,
-            height: size * 2,
-            borderBottomLeftRadius: size,
-            boxShadow: `calc(-1 * ${size}px) ${size}px 0 0 var(--toast-bg, var(--card))`,
-          }}
-        />
-      </div>
-      <svg
-        className="absolute bottom-0 left-0"
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        fill="none"
-      >
-        <path
-          d={`M0,0 A${size},${size} 0 0,1 ${size},${size}`}
-          stroke="var(--toast-border, var(--border))"
-          strokeWidth="1"
-          fill="none"
-        />
-      </svg>
-    </div>
-  );
-}
-
 function ToastItem({
   toast,
   onDismiss,
@@ -228,7 +180,6 @@ function ToastItem({
         "w-fit overflow-hidden pointer-events-auto cursor-pointer select-none",
         "bg-[var(--toast-bg,var(--card))] text-[var(--toast-fg,var(--card-foreground))]",
         "border border-[var(--toast-border,var(--border))]",
-        "shadow-[0_8px_32px_oklch(0_0_0/15%),0_2px_8px_oklch(0_0_0/10%)]",
         "backdrop-blur-[12px]",
         sc.maxWidth,
         sc.padding,
@@ -381,19 +332,19 @@ function ToastTabItem({
         "pointer-events-auto cursor-pointer select-none",
         sc.maxWidth,
       )}
-      style={{
-        ...tabCssVars,
-        filter:
-          "drop-shadow(0 8px 32px oklch(0 0 0 / 15%)) drop-shadow(0 2px 8px oklch(0 0 0 / 10%))",
-      }}
+      style={tabCssVars}
       onClick={() => onDismiss(toast.id)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       whileHover={{ scale: isTop ? 1.02 : 1 }}
       whileTap={{ scale: 0.98 }}
     >
-      {/* Tab row: tab + concave bridge (bridge only when body is visible) */}
-      <div className={cn("flex items-end", tabOnRight && "flex-row-reverse")}>
+      <div
+        className={cn(
+          "flex items-end relative z-10 mb-[-1px]",
+          tabOnRight && "flex-row-reverse",
+        )}
+      >
         {/* Tab */}
         <div
           className={cn(
@@ -423,9 +374,6 @@ function ToastTabItem({
             {toast.title}
           </span>
         </div>
-
-        {/* Concave bridge — only when body is visible */}
-        {showBody && <ConcaveCorner size={concaveSize} flip={tabOnRight} />}
       </div>
 
       {/* Body — animated for hover mode */}
@@ -442,12 +390,12 @@ function ToastTabItem({
             damping: spring.damping,
             mass: spring.mass,
           }}
-          className="overflow-hidden mt-[-1px]"
+          className="overflow-hidden"
         >
           <div
             className={cn(
               "bg-[var(--toast-bg,var(--card))] text-[var(--toast-fg,var(--card-foreground))]",
-              "border border-t-0 border-[var(--toast-border,var(--border))]",
+              "border border-[var(--toast-border,var(--border))]",
               sc.padding,
             )}
             style={{
