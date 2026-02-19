@@ -10,20 +10,66 @@ interface ChangelogEntry {
 
 const changelog: ChangelogEntry[] = [
   {
+    version: "1.3.0",
+    date: "2025-02-18",
+    changes: [
+      {
+        type: "added",
+        text: 'expandDescription prop: control whether descriptions start expanded ("open") or reveal on hover ("hover")',
+      },
+      {
+        type: "added",
+        text: "Tab layout: asymmetric tab shape with concave corner bridge connecting title to body",
+      },
+      {
+        type: "added",
+        text: "Position-aware tab alignment: tab aligns to the right on right-side positions, left on left-side",
+      },
+      {
+        type: "added",
+        text: "Expand Description toggle in the interactive demo page",
+      },
+      {
+        type: "changed",
+        text: "Spring config now affects both entrance and description expand/collapse animations",
+      },
+      {
+        type: "changed",
+        text: "Default layout uses a single rounded container instead of split title/body",
+      },
+      {
+        type: "fixed",
+        text: "Removed subtle line artifact between tab title and body (sub-pixel gap)",
+      },
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2025-02-15",
     changes: [
       { type: "added", text: "Theme provider with dark/light mode support" },
-      { type: "added", text: "Navbar component with GitHub link and theme toggle" },
-      { type: "changed", text: "Updated layout and page styles for improved theming" },
+      {
+        type: "added",
+        text: "Navbar component with GitHub link and theme toggle",
+      },
+      {
+        type: "changed",
+        text: "Updated layout and page styles for improved theming",
+      },
     ],
   },
   {
     version: "1.1.0",
     date: "2025-02-14",
     changes: [
-      { type: "added", text: "Interactive demo page with configuration controls" },
-      { type: "added", text: "Position, size, duration, and spring config selectors" },
+      {
+        type: "added",
+        text: "Interactive demo page with configuration controls",
+      },
+      {
+        type: "added",
+        text: "Position, size, duration, and spring config selectors",
+      },
       { type: "added", text: "Custom style toast demo with purple theme" },
       { type: "changed", text: "Switched to bun as package manager" },
     ],
@@ -32,17 +78,41 @@ const changelog: ChangelogEntry[] = [
     version: "1.0.0",
     date: "2025-02-13",
     changes: [
-      { type: "added", text: "BongToast component with spring-based animations via Motion" },
-      { type: "added", text: "useBongToast hook with external store for cross-component usage" },
-      { type: "added", text: "5 built-in variants: default, success, error, warning, info" },
+      {
+        type: "added",
+        text: "BongToast component with spring-based animations via Motion",
+      },
+      {
+        type: "added",
+        text: "useBongToast hook with external store for cross-component usage",
+      },
+      {
+        type: "added",
+        text: "5 built-in variants: default, success, error, warning, info",
+      },
       { type: "added", text: "3 size presets: sm, md, lg" },
-      { type: "added", text: "4 position options: top-right, top-left, bottom-right, bottom-left" },
-      { type: "added", text: "Per-toast style overrides (bg, fg, borderColor, borderRadius)" },
-      { type: "added", text: "Per-toast spring config overrides (stiffness, damping, mass)" },
-      { type: "added", text: "Hover-to-expand description with chevron indicator" },
+      {
+        type: "added",
+        text: "4 position options: top-right, top-left, bottom-right, bottom-left",
+      },
+      {
+        type: "added",
+        text: "Per-toast style overrides (bg, fg, borderColor, borderRadius)",
+      },
+      {
+        type: "added",
+        text: "Per-toast spring config overrides (stiffness, damping, mass)",
+      },
+      {
+        type: "added",
+        text: "Hover-to-expand description with chevron indicator",
+      },
       { type: "added", text: "Click-to-dismiss behavior" },
       { type: "added", text: "Imperative toast() and dismissToast() exports" },
-      { type: "added", text: "shadcn registry integration for easy installation" },
+      {
+        type: "added",
+        text: "shadcn registry integration for easy installation",
+      },
     ],
   },
 ];
@@ -50,8 +120,7 @@ const changelog: ChangelogEntry[] = [
 const typeBadge: Record<string, string> = {
   added:
     "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
-  changed:
-    "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  changed: "bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30",
   fixed:
     "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
 };

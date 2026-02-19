@@ -8,6 +8,7 @@ import {
   useBongToast,
   type ToastPosition,
   type ToastSize,
+  type ToastExpandDescription,
 } from "../../registry/bong-toast/use-bong-toast";
 
 const installCommand =
@@ -189,6 +190,8 @@ export default function Home() {
   const [damping, setDamping] = useState(25);
   const [mass, setMass] = useState(0.8);
   const [borderRadius, setBorderRadius] = useState(14);
+  const [expandDescription, setExpandDescription] =
+    useState<ToastExpandDescription>("hover");
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(installCommand);
@@ -210,6 +213,7 @@ export default function Home() {
         duration={duration}
         spring={{ stiffness, damping, mass }}
         style={{ borderRadius }}
+        expandDescription={expandDescription}
       />
 
       {/* Hero */}
@@ -280,6 +284,15 @@ export default function Home() {
             value={size}
             onChange={(v) => setSize(v as ToastSize)}
           />
+          <ToggleGroup
+            label="Expand Description"
+            options={[
+              { value: "hover", label: "Hover" },
+              { value: "open", label: "Open" },
+            ]}
+            value={expandDescription}
+            onChange={(v) => setExpandDescription(v as ToastExpandDescription)}
+          />
         </div>
 
         {/* Sliders */}
@@ -331,45 +344,59 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Variant buttons */}
-        <div className="mb-12">
-          <h2 className="mb-3 text-sm font-medium text-muted-foreground uppercase tracking-wider">
+        {/* Trigger sections */}
+        <div className="mb-12 space-y-5">
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
             Trigger a toast
           </h2>
-          <div className="flex flex-wrap gap-3">
-            {variants.map((v) => (
-              <button
-                key={v.variant}
-                onClick={() =>
-                  toast({
-                    title: v.title,
-                    description: v.description,
-                    variant: v.variant,
-                  })
-                }
-                className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${variantColor(v.variant)}`}
-              >
-                {v.label}
-              </button>
-            ))}
-            <button
-              onClick={() =>
-                toast({
-                  title: "Custom styled",
-                  description:
-                    "This toast has a custom purple background and round corners.",
-                  style: {
-                    bg: theme === "dark" ? "#2d1b69" : "#ede9fe",
-                    fg: theme === "dark" ? "#e9d5ff" : "#5b21b6",
-                    borderColor: theme === "dark" ? "#7c3aed" : "#a78bfa",
-                    borderRadius: 24,
-                  },
-                })
-              }
-              className="rounded-lg border border-purple-500/30 bg-purple-500/15 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 transition-colors hover:bg-purple-500/25"
-            >
-              Custom Style
-            </button>
+
+          {/* Default Layout */}
+          <div>
+            <p className="mb-2 text-xs text-muted-foreground/60 uppercase tracking-wider">
+              Default layout
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {variants.map((v) => (
+                <button
+                  key={v.variant}
+                  onClick={() =>
+                    toast({
+                      title: v.title,
+                      description: v.description,
+                      variant: v.variant,
+                    })
+                  }
+                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${variantColor(v.variant)}`}
+                >
+                  {v.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab Layout */}
+          <div>
+            <p className="mb-2 text-xs text-muted-foreground/60 uppercase tracking-wider">
+              Tab layout
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {variants.map((v) => (
+                <button
+                  key={`tab-${v.variant}`}
+                  onClick={() =>
+                    toast({
+                      title: v.title,
+                      description: v.description,
+                      variant: v.variant,
+                      layout: "tab",
+                    })
+                  }
+                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${variantColor(v.variant)}`}
+                >
+                  {v.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

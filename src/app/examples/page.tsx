@@ -130,74 +130,6 @@ toast({ title: "FYI", variant: "info" });`}
             </button>
           </ExampleCard>
 
-          {/* Custom Style */}
-          <ExampleCard
-            title="Custom Style"
-            description="Override colors and border radius per-toast."
-            code={`toast({
-  title: "Purple toast",
-  description: "Custom background, text, and border.",
-  style: {
-    bg: "#2d1b69",
-    fg: "#e9d5ff",
-    borderColor: "#7c3aed",
-    borderRadius: 24,
-  },
-});`}
-          >
-            <button
-              onClick={() =>
-                toast({
-                  title: "Purple toast",
-                  description: "Custom background, text, and border.",
-                  style: {
-                    bg: "#2d1b69",
-                    fg: "#e9d5ff",
-                    borderColor: "#7c3aed",
-                    borderRadius: 24,
-                  },
-                })
-              }
-              className="rounded-lg border border-purple-500/30 bg-purple-500/15 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 transition-colors hover:bg-purple-500/25"
-            >
-              Purple
-            </button>
-            <button
-              onClick={() =>
-                toast({
-                  title: "Coral toast",
-                  description: "Warm coral colors with rounded corners.",
-                  style: {
-                    bg: "#4a1a1a",
-                    fg: "#fca5a5",
-                    borderColor: "#ef4444",
-                    borderRadius: 20,
-                  },
-                })
-              }
-              className="rounded-lg border border-rose-500/30 bg-rose-500/15 px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 transition-colors hover:bg-rose-500/25"
-            >
-              Coral
-            </button>
-            <button
-              onClick={() =>
-                toast({
-                  title: "Teal toast",
-                  description: "Cool teal tones with square corners.",
-                  style: {
-                    bg: "#0d3331",
-                    fg: "#5eead4",
-                    borderColor: "#14b8a6",
-                    borderRadius: 4,
-                  },
-                })
-              }
-              className="rounded-lg border border-teal-500/30 bg-teal-500/15 px-4 py-2 text-sm font-medium text-teal-600 dark:text-teal-400 transition-colors hover:bg-teal-500/25"
-            >
-              Teal
-            </button>
-          </ExampleCard>
-
           {/* Sizes */}
           <ExampleCard
             title="Sizes"
@@ -298,6 +230,72 @@ toast({ title: "Smooth", spring: { stiffness: 200, damping: 20, mass: 1.5 } });`
               className="rounded-lg border border-border bg-muted/50 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
             >
               Smooth
+            </button>
+          </ExampleCard>
+
+          {/* Tab Layout */}
+          <ExampleCard
+            title="Tab Layout"
+            description='Asymmetric tab shape. Description expands on hover by default. Use layout: "tab".'
+            code={`toast({
+  title: "Tab toast",
+  description: "Hover to see description.",
+  variant: "success",
+  layout: "tab",
+});`}
+          >
+            <button
+              onClick={() =>
+                toast({
+                  title: "Saved!",
+                  description: "Your changes have been saved to the database.",
+                  variant: "success",
+                  layout: "tab",
+                })
+              }
+              className="rounded-lg border border-emerald-500/30 bg-emerald-500/15 px-4 py-2 text-sm font-medium text-emerald-600 dark:text-emerald-400 transition-colors hover:bg-emerald-500/25"
+            >
+              Success Tab
+            </button>
+            <button
+              onClick={() =>
+                toast({
+                  title: "Error occurred",
+                  description: "The request failed. Please try again later.",
+                  variant: "error",
+                  layout: "tab",
+                })
+              }
+              className="rounded-lg border border-red-500/30 bg-red-500/15 px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 transition-colors hover:bg-red-500/25"
+            >
+              Error Tab
+            </button>
+            <button
+              onClick={() =>
+                toast({
+                  title: "Heads up",
+                  description:
+                    "This action cannot be undone. Proceed with caution.",
+                  variant: "warning",
+                  layout: "tab",
+                })
+              }
+              className="rounded-lg border border-amber-500/30 bg-amber-500/15 px-4 py-2 text-sm font-medium text-amber-600 dark:text-amber-400 transition-colors hover:bg-amber-500/25"
+            >
+              Warning Tab
+            </button>
+            <button
+              onClick={() =>
+                toast({
+                  title: "New update",
+                  description: "Version 2.0 is ready to install.",
+                  variant: "info",
+                  layout: "tab",
+                })
+              }
+              className="rounded-lg border border-blue-500/30 bg-blue-500/15 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 transition-colors hover:bg-blue-500/25"
+            >
+              Info Tab
             </button>
           </ExampleCard>
 

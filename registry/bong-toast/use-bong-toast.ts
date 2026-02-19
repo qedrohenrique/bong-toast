@@ -12,6 +12,10 @@ export type ToastPosition =
 
 export type ToastSize = "sm" | "md" | "lg";
 
+export type ToastLayout = "default" | "tab";
+
+export type ToastExpandDescription = "open" | "hover";
+
 export interface ToastStyle {
   /** Background color (any CSS color) */
   bg?: string;
@@ -39,6 +43,9 @@ export interface ToastData {
   variant?: ToastVariant;
   duration?: number;
   size?: ToastSize;
+  layout?: ToastLayout;
+  /** Whether the description starts expanded or only on hover */
+  expandDescription?: ToastExpandDescription;
   style?: ToastStyle;
   spring?: ToastSpring;
 }
@@ -51,6 +58,10 @@ export interface ToastOptions {
   duration?: number;
   /** Toast size: sm, md, lg (default: md) */
   size?: ToastSize;
+  /** Layout style: default (inline) or tab (asymmetric tab shape) */
+  layout?: ToastLayout;
+  /** Whether the description starts expanded or only on hover (default: "hover") */
+  expandDescription?: ToastExpandDescription;
   /** Custom colors and border radius */
   style?: ToastStyle;
   /** Spring animation config */
@@ -90,6 +101,8 @@ export function toastStore() {
         variant: options.variant ?? "default",
         duration: options.duration,
         size: options.size,
+        layout: options.layout,
+        expandDescription: options.expandDescription,
         style: options.style,
         spring: options.spring,
       };

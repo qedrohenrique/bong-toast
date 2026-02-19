@@ -7,8 +7,8 @@
       "name": "bong-toast",
       "type": "registry:block",
       "title": "Bong Toast",
-      "description": "Animated bong toast notifications with spring animations.",
-      "dependencies": ["motion"],
+      "description": "Animated toast notifications with spring animations and Lucide icons.",
+      "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/bong-toast/bong-toast.tsx",
@@ -17,11 +17,6 @@
         {
           "path": "registry/bong-toast/use-bong-toast.ts",
           "type": "registry:hook"
-        },
-        {
-          "path": "registry/bong-toast/bong-toast.css",
-          "type": "registry:file",
-          "target": "components/bong-toast/bong-toast.css"
         }
       ]
     }
